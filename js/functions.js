@@ -1,5 +1,7 @@
+const MINUTES_IN_HOUR = 60;
+
 function isCorrectLengthByString(value, maxLength) {
-  const isCorrectParams = typeof(value) === 'string' && Number.isInteger(maxLength);
+  const isCorrectParams = typeof (value) === 'string' && Number.isInteger(maxLength);
   return isCorrectParams
     ? value.length <= maxLength
     : undefined;
@@ -23,7 +25,7 @@ isCorrectLengthByString('проверяемая строка', 'ss'); //undefine
 function revertString(value) {
   let result = '';
 
-  for(let letterIndex = value.length - 1; letterIndex >= 0; letterIndex--) {
+  for (let letterIndex = value.length - 1; letterIndex >= 0; letterIndex--) {
     result += value[letterIndex];
   }
 
@@ -31,7 +33,7 @@ function revertString(value) {
 }
 
 function isPalindrom(value) {
-  const isCorrectParams = typeof(value) === 'string' || !isNaN(value);
+  const isCorrectParams = typeof (value) === 'string' || !isNaN(value);
 
   if (isCorrectParams) {
     const castedValue = `${value}`
@@ -46,7 +48,7 @@ function isPalindrom(value) {
 // Стока палиндром
 isPalindrom('12321'); //true
 // Не строка и не число
-isPalindrom({test: 1}); //undefined
+isPalindrom({ test: 1 }); //undefined
 // Регистронезависимый палиндром
 isPalindrom(' rr Rr '); //true;
 // Один символ
@@ -92,5 +94,71 @@ getInteger(-1);//1
 // Дробное число
 getInteger(1.5);//15
 // Объект
-getInteger({test: 1});//NaN
+getInteger({ test: 1 });//NaN
 
+const TimeObject = function (stringTime) {
+  const timeParts = stringTime?.split(':', 2).map((current) => Number.parseInt(current, 10));
+
+  if (timeParts.length === 2) {
+    this.hours = timeParts[0];
+    this.minutes = timeParts[1];
+
+    this.compare = (comparedTime) => {
+      if (comparedTime instanceof TimeObject) {
+        if (this.hours === comparedTime.hours) {
+          return this.minutes - comparedTime.minutes;
+        }
+
+        return this.hours - comparedTime.hours;
+      }
+
+      throw new Error('comparedTime argument is not TimeObject');
+    };
+
+    this.addMinutes = (minutes) => {
+      let resultMinutes = this.minutes + minutes;
+
+      if (resultMinutes >= MINUTES_IN_HOUR) {
+        const newMinutes = resultMinutes % MINUTES_IN_HOUR;
+        resultMinutes -= newMinutes;
+        const newHours = this.hours + resultMinutes / MINUTES_IN_HOUR;
+        this.hours = newHours;
+        this.minutes = newMinutes;
+        return;
+      }
+
+      this.minutes = resultMinutes;
+    };
+    return;
+  }
+
+  throw new Error(`TimeObject build failed of stringTime = ${stringTime}`);
+};
+
+const isPossibleMeeting = (workTimeBegin, workTimeEnd, meetingTimeBegin, meetingDuration) => {
+  const isCorrectMeetingDuration = Number.isInteger(meetingDuration) && meetingDuration > 0;
+  const isTimesParamsAreString = typeof (workTimeBegin) === 'string' && typeof (workTimeEnd) === 'string' && typeof (meetingTimeBegin) === 'string';
+
+  const isCorrectParams = isCorrectMeetingDuration && isTimesParamsAreString;
+
+  if (isCorrectParams) {
+    const workTimeBeginObject = new TimeObject(workTimeBegin);
+    const workTimeEndObject = new TimeObject(workTimeEnd);
+    const meetingTimeBeginObject = new TimeObject(meetingTimeBegin);
+
+    if (workTimeBeginObject.compare(meetingTimeBeginObject) <= 0) {
+      meetingTimeBeginObject.addMinutes(meetingDuration);
+
+      return meetingTimeBeginObject.compare(workTimeEndObject) <= 0;
+    }
+
+    return false;
+  }
+
+  throw new Error('Invalid arguments');
+};
+isPossibleMeeting('08:00', '17:30', '14:00', 90); // true
+isPossibleMeeting('8:0', '10:0', '8:0', 120);// true
+isPossibleMeeting('08:00', '14:30', '14:00', 90); // false
+isPossibleMeeting('14:00', '17:30', '08:0', 90); // false
+isPossibleMeeting('8:00', '17:30', '08:00', 900); // false
