@@ -1,0 +1,6 @@
+export const PHOTOS_COUNT = 25;
+export const COMMENTATOR_AVATAR_COUNT = 6;
+export const PHOTO_LIKES_MINIMUM = 15;
+export const PHOTO_LIKES_MAXIMUM = 200;
+export const MAX_COMMENTS_IN_ONE_POST = 30;
+export const MAX_COMMENT_ID = PHOTOS_COUNT * MAX_COMMENTS_IN_ONE_POST;
