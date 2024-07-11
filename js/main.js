@@ -1,5 +1,6 @@
-import { generatePosts } from './generate-data-stub';
+import {
+  createPictures,
+  renderPictureList
+} from './other-user-pictures';
 
-const { generatePostsListStub } = generatePosts;
-
-generatePostsListStub();
+renderPictureList(document.querySelector('.pictures'), createPictures());

@@ -5,6 +5,10 @@ import {
 import {
   createUniqueNumberInIntervalGenerator
 } from './tools/number-generator';
+import {
+  getHtmlTemplate,
+  fillHtmlElement
+} from './tools/html';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -15,7 +19,13 @@ const numberGeneratorTools = {
   createUniqueNumberInIntervalGenerator
 };
 
+const htmlTools = {
+  getHtmlTemplate,
+  fillHtmlElement
+};
+
 export {
   randomTools,
-  numberGeneratorTools
+  numberGeneratorTools,
+  htmlTools
 };
