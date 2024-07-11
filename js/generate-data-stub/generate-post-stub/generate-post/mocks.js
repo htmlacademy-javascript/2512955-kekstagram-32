@@ -1,14 +1,6 @@
 import {
-  PHOTOS_COUNT,
-  MAX_COMMENTS_IN_ONE_POST,
-  PHOTO_LIKES_MAXIMUM,
-  PHOTO_LIKES_MINIMUM,
-} from './constants';
-import {
-  numberGeneratorTools,
-  randomTools,
-} from '../../utills';
-import { generatePostCommentsListStub } from './generate-comment';
+  PHOTOS_COUNT
+} from '../constants';
 
 const PHOTO_STUBS_DESCRIPTIONS = [
   'Озеро, пляж, ТУЧА ЛЕЖАКОВ!',
@@ -38,35 +30,10 @@ const PHOTO_STUBS_DESCRIPTIONS = [
   'Марс атакует!!'
 ];
 
-const PHOTO_STUBS = Array.from(
+export const PHOTO_STUBS = Array.from(
   { length: PHOTOS_COUNT },
   (_, index) => ({
     url: `photos/${index + 1}.jpg`,
     description: PHOTO_STUBS_DESCRIPTIONS[index]
   })
 );
-
-const { createUniqueNumberInIntervalGenerator } = numberGeneratorTools;
-const { getRandomIntegerInInterval } = randomTools;
-
-const generateUnuquePostStubId = createUniqueNumberInIntervalGenerator(1, PHOTOS_COUNT);
-
-const getUniquePhotoStubId = createUniqueNumberInIntervalGenerator(0, PHOTOS_COUNT - 1);
-
-const generatePostStub = () => {
-  const photoStub = PHOTO_STUBS[getUniquePhotoStubId()];
-  const commentsCount = getRandomIntegerInInterval(0, MAX_COMMENTS_IN_ONE_POST);
-  return {
-    id: generateUnuquePostStubId(),
-    likes: getRandomIntegerInInterval(PHOTO_LIKES_MINIMUM, PHOTO_LIKES_MAXIMUM),
-    comments: generatePostCommentsListStub(commentsCount),
-    ...photoStub,
-  };
-};
-
-const generatePostsListStub = (count = PHOTOS_COUNT) => Array.from({ length: count }, generatePostStub);
-
-export {
-  generatePostStub,
-  generatePostsListStub
-};
