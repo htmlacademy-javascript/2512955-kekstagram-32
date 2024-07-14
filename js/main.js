@@ -1,6 +1,5 @@
 import {
-  createPictures,
-  renderPictureList
-} from './other-user-pictures';
+  createGallery
+} from './pictures-gallery';
 
-renderPictureList(document.querySelector('.pictures'), createPictures());
+createGallery();

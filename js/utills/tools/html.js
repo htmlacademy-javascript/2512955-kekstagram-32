@@ -27,3 +27,35 @@ export const fillHtmlElement = (element, data) => {
 
   throw new Error('Invalid arguments');
 };
+
+export const renderHtmlElement = (root, childElements) => {
+  const isDOMElementsInChilds = Array.isArray(childElements) && childElements.every((current) => current instanceof HTMLElement);
+  const isCurrentRoot = root instanceof HTMLElement || root instanceof DocumentFragment;
+  const isCorrectParams = isCurrentRoot && isDOMElementsInChilds;
+
+  if (isCorrectParams && childElements.length > 0) {
+    const childsContainerFragment = document.createDocumentFragment();
+    childsContainerFragment.append(...childElements);
+    root.appendChild(childsContainerFragment);
+
+    return;
+  }
+
+  throw new Error('Invalid arguments');
+};
+
+export const createHtmlElement = (tagName, classList) => {
+  if (typeof(tagName) === 'string' && tagName) {
+    const element = document.createElement(tagName);
+
+    if (Array.isArray(classList) && classList.every((current) => typeof(current) === 'string')) {
+      classList.forEach((current) => {
+        element.classList.add(current);
+      });
+    }
+
+    return element;
+  }
+
+  throw new Error('Invalid arguments');
+};

@@ -1,8 +1,9 @@
-import { getOtherUserPictures } from './api';
-import { createPictureItem } from './picture-item';
+import { createPictureElement } from './picture-element';
 
-export const createPictures = () => {
-  const picturesViews = getOtherUserPictures()
-    .map((picture) => createPictureItem(picture));
-  return picturesViews;
+export const createPicturesElements = (picturesData) => {
+  if (Array.isArray(picturesData)) {
+    return picturesData.map((picture) => createPictureElement(picture));
+  }
+
+  throw new Error('Invalid picturesData');
 };

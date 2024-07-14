@@ -1,7 +1,5 @@
-import { createPictures } from './create-pictures';
-import { renderPictureList } from './render-pictures';
+import { createPicturesElements } from './create-pictures';
 
 export {
-  createPictures,
-  renderPictureList
+  createPicturesElements,
 };
