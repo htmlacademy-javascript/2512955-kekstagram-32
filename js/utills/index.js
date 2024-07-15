@@ -7,8 +7,13 @@ import {
 } from './tools/number-generator';
 import {
   getHtmlTemplate,
-  fillHtmlElement
+  fillHtmlElement,
+  renderHtmlElement,
+  createHtmlElement,
 } from './tools/html';
+import {
+  isEscapeKey
+} from './tools/keyboard';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -21,11 +26,18 @@ const numberGeneratorTools = {
 
 const htmlTools = {
   getHtmlTemplate,
-  fillHtmlElement
+  fillHtmlElement,
+  renderHtmlElement,
+  createHtmlElement
+};
+
+const keyboardTools = {
+  isEscapeKey
 };
 
 export {
   randomTools,
   numberGeneratorTools,
-  htmlTools
+  htmlTools,
+  keyboardTools
 };
