@@ -33,7 +33,7 @@ export const renderHtmlElement = (root, childElements) => {
   const isCurrentRoot = root instanceof HTMLElement || root instanceof DocumentFragment;
   const isCorrectParams = isCurrentRoot && isDOMElementsInChilds;
 
-  if (isCorrectParams && childElements.length > 0) {
+  if (isCorrectParams) {
     const childsContainerFragment = document.createDocumentFragment();
     childsContainerFragment.append(...childElements);
     root.appendChild(childsContainerFragment);
