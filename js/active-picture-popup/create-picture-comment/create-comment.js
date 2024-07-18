@@ -1,4 +1,4 @@
-import { htmlTools } from '../utills';
+import { htmlTools } from '../../utills';
 
 const {
   createHtmlElement,

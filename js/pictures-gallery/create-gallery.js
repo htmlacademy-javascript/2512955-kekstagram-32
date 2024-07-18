@@ -16,9 +16,8 @@ export const createGallery = () => {
 
   const onPicturesListRootElementClick = (event) => {
     const element = event.target;
-    const pictureElement = element.matches('.picture__img');
     const pictureRootElement = element.closest('.picture');
-    if (pictureElement && pictureRootElement) {
+    if (pictureRootElement) {
       const acivePictureId = pictureRootElement?.dataset?.idPicture ?? INVALID_ID;
       const activePictureData = picturesData.find((value) => value.id === +acivePictureId);
 
