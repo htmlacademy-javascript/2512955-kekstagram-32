@@ -5,7 +5,10 @@ import { Popup } from '../../shared/popup/popup';
 import {
   createCommentsListRenderer
 } from '../create-picture-comment';
-import { toggleHiddenClassInCommentsTotalAndLoader } from './event-helpers';
+import {
+  loadComments,
+  toggleHiddenClassInCommentsTotalAndLoader,
+} from './event-helpers';
 
 const { fillHtmlElement, createHtmlElement } = htmlTools;
 
@@ -26,23 +29,19 @@ const onActivePicturePopupOpen = ({
 
   const onCommentsLoaderClick = (event) => {
     event.preventDefault();
-    renderCommentsList();
 
-    const renderedCommentsCount = commentsListElement.querySelectorAll('.social__comment').length;
-    fillHtmlElement(
-      renderedCommentsCountElement,
-      {
-        textContent: renderedCommentsCount,
-      }
-    );
+    loadComments(rootElement, renderCommentsList);
 
-    if (renderedCommentsCount === comments.length) {
+    if (commentsListElement.children.length === comments.length) {
       toggleHiddenClassInCommentsTotalAndLoader(rootElement, true);
       event.target.removeEventListener('click', onCommentsLoaderClick);
     }
   };
 
   commentsListElement.innerHTML = '';
+
+  loadComments(rootElement, renderCommentsList);
+
   fillHtmlElement(
     rootElement.querySelector('.big-picture__img').querySelector('img'),
     {
@@ -55,6 +54,13 @@ const onActivePicturePopupOpen = ({
     rootElement.querySelector('.likes-count'),
     {
       textContent: likes
+    }
+  );
+
+  fillHtmlElement(
+    renderedCommentsCountElement,
+    {
+      textContent: commentsListElement.querySelectorAll('.social__comment').length
     }
   );
 
@@ -72,11 +78,10 @@ const onActivePicturePopupOpen = ({
     }
   );
 
-  renderCommentsList();
-
   if (commentsListElement.children.length === comments.length) {
     toggleHiddenClassInCommentsTotalAndLoader(rootElement, true);
     commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
+    return;
   }
 
   commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
