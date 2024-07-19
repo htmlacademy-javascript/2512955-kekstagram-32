@@ -23,7 +23,7 @@ export const Popup = function({rootElement, onOpenPopupCallback, onClosePopupCal
     };
 
     this.close = () => {
-      if (onOpenPopupCallback && typeof(onClosePopupCallback) === 'function') {
+      if (onClosePopupCallback && typeof(onClosePopupCallback) === 'function') {
         onClosePopupCallback();
       }
       this.rootElement.classList.add('hidden');
