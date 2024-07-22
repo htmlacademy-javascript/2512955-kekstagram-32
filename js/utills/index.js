@@ -14,6 +14,11 @@ import {
 import {
   isEscapeKey
 } from './tools/keyboard';
+import {
+  ENCTYPES,
+  QUERY_TYPES,
+  setFormAttributes
+} from './tools/form';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -35,9 +40,16 @@ const keyboardTools = {
   isEscapeKey
 };
 
+const formTools = {
+  ENCTYPES,
+  QUERY_TYPES,
+  setFormAttributes
+};
+
 export {
   randomTools,
   numberGeneratorTools,
   htmlTools,
-  keyboardTools
+  keyboardTools,
+  formTools
 };
