@@ -1,26 +1,23 @@
-export const configureSubmitNewPictureForm = (newPictureForm, pristineValidator) => {
+import { Popup } from '../../shared/popup';
+
+export const configureSubmitNewPictureForm = (newPictureForm, pristineValidator, newPicturePopup) => {
   const onNewPictureFormSubmit = (event) => {
     event.preventDefault();
 
     if (pristineValidator.validate()) {
       //TODO: Отправить форму на сервер
+      //ЗАКРЫТЬ ЧЕРТОВУ МОДАЛКУ!!!!!
+      newPicturePopup.close();
+      newPictureForm.removeEventListener('submit', onNewPictureFormSubmit);
     }
   };
 
-  const setSubmitEvent = () => {
-    newPictureForm.addEventListener('submit', onNewPictureFormSubmit);
-  };
-
-  const removeSubmitEvent = () => {
-    newPictureForm.removeEventListener('submit', onNewPictureFormSubmit);
-  };
-
-  if (newPictureForm instanceof HTMLFormElement) {
+  if (newPictureForm instanceof HTMLFormElement && newPicturePopup instanceof Popup) {
     return {
-      set: setSubmitEvent,
-      remove: removeSubmitEvent
+      set: () => newPictureForm.addEventListener('submit', onNewPictureFormSubmit),
+      remove: () => newPictureForm.removeEventListener('submit', onNewPictureFormSubmit)
     };
   }
 
-  throw new Error('NewPictureForm is not HTML Form');
+  throw new Error('Invalid arguments');
 };
