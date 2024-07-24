@@ -1,4 +1,8 @@
 import {
+  AdditionalEvent,
+  EVENT_TYPES
+} from './additional-event';
+import {
   toggleModalOpenSelector,
   onDocumentKeydownTemplate
 } from './handler';
@@ -11,8 +15,13 @@ export const Popup = function({rootElement, onOpenPopupCallback, onClosePopupCal
   if (isCorrectParams) {
     this.rootElement = rootElement;
     this.closeElement = closeElement;
+    const additionalEvents = [];
 
     const onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
+
+    const applyAdditionalEvents = (type) => {
+      additionalEvents.filter((current) => current.type === type).forEach((currentCallback) => currentCallback.listener());
+    };
 
     this.open = (data) => {
       onOpenPopupCallback(data);
@@ -20,6 +29,7 @@ export const Popup = function({rootElement, onOpenPopupCallback, onClosePopupCal
       toggleModalOpenSelector(true);
       document.addEventListener('keydown', onDocumentKeydown);
       closeElement.addEventListener('click', this.close);
+      applyAdditionalEvents(EVENT_TYPES.OPEN);
     };
 
     this.close = () => {
@@ -30,6 +40,15 @@ export const Popup = function({rootElement, onOpenPopupCallback, onClosePopupCal
       toggleModalOpenSelector();
       closeElement.removeEventListener('click', this.close);
       document.removeEventListener('keydown', onDocumentKeydown);
+      applyAdditionalEvents(EVENT_TYPES.CLOSE);
+    };
+
+    this.addEvent = (additionalEvent) => {
+      if (additionalEvent instanceof AdditionalEvent) {
+        if (!additionalEvents.find((current) => current.type === additionalEvent.type && current.listener === additionalEvent.listener)) {
+          additionalEvents.push(additionalEvent);
+        }
+      }
     };
 
     return;

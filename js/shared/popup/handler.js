@@ -10,8 +10,13 @@ export const toggleModalOpenSelector = (isOpen = false) => {
   bodyElement.classList.remove('modal-open');
 };
 
+const isNotClosableByEscape = (element) =>
+  (element instanceof HTMLInputElement && !['radio', 'checkbox'].includes(element.type))
+  || element instanceof HTMLTextAreaElement;
+
+
 export const onDocumentKeydownTemplate = function (event) {
-  if (keyboardTools.isEscapeKey(event)) {
+  if (keyboardTools.isEscapeKey(event) && !isNotClosableByEscape(event.target)) {
     this.close();
   }
 };
