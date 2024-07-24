@@ -3,12 +3,12 @@ export const EVENT_TYPES = {
   CLOSE: 'close'
 };
 
-export function AdditionalEvent(eventType, listener) {
+export function PopupEvent(eventType, listener) {
   if (typeof(listener) === 'function') {
     this.type = eventType;
     this.listener = listener;
     return;
   }
 
-  throw new Error('AdditionalCallback build failed!');
+  throw new Error('PopupEvent build failed!');
 }

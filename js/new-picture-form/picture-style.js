@@ -10,10 +10,10 @@ const styleState = {
 const getScaleStyle = (scalePercent) => {
   const scaleValue = scalePercent / 100;
 
-  return `transform: scale(${Number.isInteger(scaleValue) ? scaleValue : scaleValue.toFixed(2)})`;
+  return `transform: scale(${Number.isInteger(scaleValue) ? scaleValue : scaleValue.toFixed(2)});`;
 };
 
-const getFilterStyle = (filterValue) => `filter: ${filterValue}`;
+const getFilterStyle = (filterValue) => `filter: ${filterValue};`;
 
 const applyPictureStyleInState = (picture) => {
   let styleExpression = '';
@@ -26,7 +26,7 @@ const applyPictureStyleInState = (picture) => {
 
     if (styleState.filter) {
       const filterStyle = getFilterStyle(styleState.filter);
-      styleExpression += styleExpression ? `, ${filterStyle}` : filterStyle;
+      styleExpression += styleExpression ? ` ${filterStyle}` : filterStyle;
     }
   }
 

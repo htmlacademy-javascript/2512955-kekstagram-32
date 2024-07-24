@@ -5,7 +5,3 @@ export const SCALE_SETTINGS = {
 };
 
 export const DEFAULT_SCALE = SCALE_SETTINGS.max;
-
-export const MAX_HASHTAGS_IN_INPUT = 5;
-
-export const MAX_COMMENT_LENGTH = 20;

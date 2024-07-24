@@ -6,7 +6,6 @@ export const configureSubmitNewPictureForm = (newPictureForm, pristineValidator,
 
     if (pristineValidator.validate()) {
       //TODO: Отправить форму на сервер
-      //ЗАКРЫТЬ ЧЕРТОВУ МОДАЛКУ!!!!!
       newPicturePopup.close();
       newPictureForm.removeEventListener('submit', onNewPictureFormSubmit);
     }

@@ -1,13 +1,9 @@
 import { keyboardTools } from '../../utills';
+import { cssTools } from '../../utills';
 
 export const toggleModalOpenSelector = (isOpen = false) => {
   const bodyElement = document.querySelector('body');
-
-  if (isOpen) {
-    bodyElement.classList.add('modal-open');
-    return;
-  }
-  bodyElement.classList.remove('modal-open');
+  cssTools.toggleHiddenClassInElement(bodyElement, isOpen, 'modal-open');
 };
 
 const isNotClosableByEscape = (element) =>

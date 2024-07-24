@@ -19,6 +19,9 @@ import {
   QUERY_TYPES,
   setFormAttributes
 } from './tools/form';
+import {
+  toggleHiddenClassInElement
+} from './tools/css';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -46,10 +49,15 @@ const formTools = {
   setFormAttributes
 };
 
+const cssTools = {
+  toggleHiddenClassInElement
+};
+
 export {
   randomTools,
   numberGeneratorTools,
   htmlTools,
   keyboardTools,
-  formTools
+  formTools,
+  cssTools,
 };
