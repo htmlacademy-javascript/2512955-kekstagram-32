@@ -33,7 +33,6 @@ export const configureFilterSliderEvents = (newPictureForm) => {
       const effectElement = event.target;
       const sliderSettings = getSliderSettings(effectElement.value);
       slider.updateOptions(sliderSettings);
-      slider.set(sliderSettings.start);
       cssTools.toggleHiddenClassInElement(sliderContainerElement, originalStylesInput.checked);
     }
   };
