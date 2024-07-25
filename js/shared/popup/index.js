@@ -1,11 +1,11 @@
 import { Popup } from './popup';
 import {
-  AdditionalEvent,
+  PopupEvent,
   EVENT_TYPES
-} from './additional-event';
+} from './popup-event';
 
 export {
   Popup,
-  AdditionalEvent,
+  PopupEvent,
   EVENT_TYPES
 };

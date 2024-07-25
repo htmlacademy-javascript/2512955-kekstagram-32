@@ -10,6 +10,7 @@ import {
   fillHtmlElement,
   renderHtmlElement,
   createHtmlElement,
+  setInputValue
 } from './tools/html';
 import {
   isEscapeKey
@@ -19,6 +20,9 @@ import {
   QUERY_TYPES,
   setFormAttributes
 } from './tools/form';
+import {
+  toggleHiddenClassInElement
+} from './tools/css';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -33,7 +37,8 @@ const htmlTools = {
   getHtmlTemplate,
   fillHtmlElement,
   renderHtmlElement,
-  createHtmlElement
+  createHtmlElement,
+  setInputValue
 };
 
 const keyboardTools = {
@@ -46,10 +51,15 @@ const formTools = {
   setFormAttributes
 };
 
+const cssTools = {
+  toggleHiddenClassInElement
+};
+
 export {
   randomTools,
   numberGeneratorTools,
   htmlTools,
   keyboardTools,
-  formTools
+  formTools,
+  cssTools,
 };

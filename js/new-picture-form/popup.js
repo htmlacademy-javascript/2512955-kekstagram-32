@@ -1,19 +1,27 @@
 import { Popup } from '../shared/popup';
 import {
   configureScaleEvents,
+  configureValidationEvents
+} from './configure';
+import {
+  configureFilterSliderEvents
 } from './configure';
 
 export const createNewPicturePopup = (newPictureForm, downloadPictureInput, pristineValidator) => {
   const scaleEvents = configureScaleEvents(newPictureForm);
-  //const submitEvent = configureSubmitNewPictureForm(newPictureForm, pristineValidator);
+  const validationEvents = configureValidationEvents(pristineValidator, newPictureForm);
+  const filterSliderEvents = configureFilterSliderEvents(newPictureForm);
   // eslint-disable-next-line no-unused-vars
   const onOpenPopupCallback = (data) => {
-    //submitEvent.set();
     scaleEvents.set();
+    validationEvents.set();
+    filterSliderEvents.set();
   };
 
   const onClosePopupCallback = () => {
     scaleEvents.remove();
+    validationEvents.remove();
+    filterSliderEvents.remove();
     downloadPictureInput.value = null;
     pristineValidator.destroy();
   };

@@ -1,6 +1,6 @@
-import { NEW_PICTURE_FORM_SETTINGS } from '../../../config';
+import { FIELDS_CONFIG } from '../settings';
 
-const { MAX_HASHTAGS_IN_INPUT, MAX_COMMENT_LENGTH } = NEW_PICTURE_FORM_SETTINGS;
+const { MAX_HASHTAGS_IN_INPUT, MAX_COMMENT_LENGTH } = FIELDS_CONFIG;
 
 const getHashtagsArray = (serializedHashtags) => String(serializedHashtags).split(' ').filter((current) => current !== '');
 

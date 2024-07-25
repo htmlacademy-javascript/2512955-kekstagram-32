@@ -1,13 +1,12 @@
 import { keyboardTools } from '../../utills';
+import { cssTools } from '../../utills';
+
+const { isEscapeKey } = keyboardTools;
+const { toggleHiddenClassInElement } = cssTools;
 
 export const toggleModalOpenSelector = (isOpen = false) => {
   const bodyElement = document.querySelector('body');
-
-  if (isOpen) {
-    bodyElement.classList.add('modal-open');
-    return;
-  }
-  bodyElement.classList.remove('modal-open');
+  toggleHiddenClassInElement(bodyElement, isOpen, 'modal-open');
 };
 
 const isNotClosableByEscape = (element) =>
@@ -16,7 +15,7 @@ const isNotClosableByEscape = (element) =>
 
 
 export const onDocumentKeydownTemplate = function (event) {
-  if (keyboardTools.isEscapeKey(event) && !isNotClosableByEscape(event.target)) {
+  if (isEscapeKey(event) && !isNotClosableByEscape(event.target)) {
     this.close();
   }
 };

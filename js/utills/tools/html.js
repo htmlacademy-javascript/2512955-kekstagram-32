@@ -59,3 +59,11 @@ export const createHtmlElement = (tagName, classList) => {
 
   throw new Error('Invalid arguments');
 };
+
+export const setInputValue = (input, value) => {
+  if (input instanceof HTMLInputElement) {
+    const attributeValue = value ? value : '';
+    input.value = value;
+    input.setAttribute('value', attributeValue);
+  }
+};

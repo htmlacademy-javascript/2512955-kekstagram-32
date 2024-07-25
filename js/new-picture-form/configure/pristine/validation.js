@@ -1,4 +1,4 @@
-import { PRISTINE_CONFIG } from '../../../config';
+import { PRISTINE_CONFIG } from '../settings';
 import {
   validateCommentLength,
   validateHashtagByPattern,
@@ -7,7 +7,7 @@ import {
 } from './validators';
 
 export const configurePristineValidation = (newPictureForm) => {
-  const pristine = new Pristine(newPictureForm, PRISTINE_CONFIG, true);
+  const pristine = new Pristine(newPictureForm, PRISTINE_CONFIG, false);
   const hashtagsInput = newPictureForm.querySelector('.text__hashtags');
   const commentInput = newPictureForm.querySelector('.text__description');
 
