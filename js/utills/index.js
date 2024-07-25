@@ -10,6 +10,7 @@ import {
   fillHtmlElement,
   renderHtmlElement,
   createHtmlElement,
+  setInputValue
 } from './tools/html';
 import {
   isEscapeKey
@@ -36,7 +37,8 @@ const htmlTools = {
   getHtmlTemplate,
   fillHtmlElement,
   renderHtmlElement,
-  createHtmlElement
+  createHtmlElement,
+  setInputValue
 };
 
 const keyboardTools = {
