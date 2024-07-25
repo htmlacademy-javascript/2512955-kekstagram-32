@@ -1,9 +1,10 @@
 import { getSliderSettings } from './slider-settings';
 import { createSliderUpdateEvent } from './slider-update';
-import { NEW_PICTURE_FORM_SETTINGS } from '../../../config';
+import { SLIDER_CONFIG } from '../settings';
 import { cssTools } from '../../../utills';
 
-const { SLIDER_EFFECT_SETTINGS } = NEW_PICTURE_FORM_SETTINGS;
+const { SLIDER_EFFECT_SETTINGS } = SLIDER_CONFIG;
+const { toggleHiddenClassInElement } = cssTools;
 
 const isChosenEffectRadioElement = (element) => element instanceof HTMLInputElement
   && element.type === 'radio'
@@ -33,7 +34,7 @@ export const configureFilterSliderEvents = (newPictureForm) => {
       const effectElement = event.target;
       const sliderSettings = getSliderSettings(effectElement.value);
       slider.updateOptions(sliderSettings);
-      cssTools.toggleHiddenClassInElement(sliderContainerElement, originalStylesInput.checked);
+      toggleHiddenClassInElement(sliderContainerElement, originalStylesInput.checked);
     }
   };
 

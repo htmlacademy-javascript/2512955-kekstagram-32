@@ -1,8 +1,9 @@
-import { NEW_PICTURE_FORM_SETTINGS } from '../../config';
+import { SCALE_CONFIG } from './settings';
 import { dispatchScale } from '../picture-style';
 import { htmlTools } from '../../utills';
 
-const { SCALE_SETTINGS, DEFAULT_SCALE } = NEW_PICTURE_FORM_SETTINGS;
+const { SCALE_SETTINGS, DEFAULT_SCALE } = SCALE_CONFIG;
+const { setInputValue } = htmlTools;
 
 export const configureScaleEvents = (formElement) => {
   const smallerScaleElement = formElement.querySelector('.scale__control--smaller');
@@ -12,7 +13,7 @@ export const configureScaleEvents = (formElement) => {
     .querySelector('.img-upload__preview')
     .querySelector('img');
   biggerScaleElement.disabled = true;
-  htmlTools.setInputValue(scaleValueElement, `${ DEFAULT_SCALE }%`);
+  setInputValue(scaleValueElement, `${ DEFAULT_SCALE }%`);
 
   const onChangeScale = (currentValue, hasIncrease = true) => {
     let newValue = hasIncrease
@@ -32,7 +33,7 @@ export const configureScaleEvents = (formElement) => {
       biggerScaleElement.disabled = false;
     }
 
-    htmlTools.setInputValue(scaleValueElement, `${newValue}%`);
+    setInputValue(scaleValueElement, `${newValue}%`);
     dispatchScale(imageElement, newValue);
   };
 
@@ -54,7 +55,7 @@ export const configureScaleEvents = (formElement) => {
   const removeEvents = () => {
     smallerScaleElement.removeEventListener('click', onSmallerScaleElementClick);
     biggerScaleElement.removeEventListener('click', onBiggerScaleElementClick);
-    htmlTools.setInputValue(scaleValueElement, `${ DEFAULT_SCALE }%`);
+    setInputValue(scaleValueElement, `${ DEFAULT_SCALE }%`);
     dispatchScale(imageElement, DEFAULT_SCALE);
   };
 

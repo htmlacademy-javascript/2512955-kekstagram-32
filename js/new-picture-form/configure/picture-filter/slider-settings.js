@@ -1,6 +1,6 @@
-import { NEW_PICTURE_FORM_SETTINGS } from '../../../config';
+import { SLIDER_CONFIG } from '../settings';
 
-const { SLIDER_EFFECT_SETTINGS, EFFECT_TYPES } = NEW_PICTURE_FORM_SETTINGS;
+const { SLIDER_EFFECT_SETTINGS, EFFECT_TYPES } = SLIDER_CONFIG;
 
 export const getSliderSettings = (effectType) => {
   switch (effectType) {

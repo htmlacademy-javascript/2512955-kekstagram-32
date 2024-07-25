@@ -1,4 +1,4 @@
-import { PRISTINE_CONFIG } from '../../../config';
+import { PRISTINE_CONFIG } from '../settings';
 import {
   validateCommentLength,
   validateHashtagByPattern,

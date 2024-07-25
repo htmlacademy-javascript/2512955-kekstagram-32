@@ -1,6 +1,6 @@
-import { NEW_PICTURE_FORM_SETTINGS } from '../../../config';
+import { SLIDER_CONFIG } from '../settings';
 
-const { EFFECT_TYPES } = NEW_PICTURE_FORM_SETTINGS;
+const { EFFECT_TYPES } = SLIDER_CONFIG;
 
 export const createPictureFilter = (effectType, value) => {
   switch(effectType) {

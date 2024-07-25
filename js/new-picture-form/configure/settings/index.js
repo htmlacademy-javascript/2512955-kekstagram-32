@@ -10,12 +10,26 @@ import {
   SLIDER_EFFECT_SETTINGS,
   EFFECT_TYPES
 } from './filter-slider-effects';
+import { PRISTINE_CONFIG } from './pristine';
 
-export {
+const SCALE_CONFIG = {
   DEFAULT_SCALE,
-  SCALE_SETTINGS,
+  SCALE_SETTINGS
+};
+
+const FIELDS_CONFIG = {
   MAX_COMMENT_LENGTH,
-  MAX_HASHTAGS_IN_INPUT,
+  MAX_HASHTAGS_IN_INPUT
+};
+
+const SLIDER_CONFIG = {
   SLIDER_EFFECT_SETTINGS,
   EFFECT_TYPES
+};
+
+export {
+  SCALE_CONFIG,
+  FIELDS_CONFIG,
+  SLIDER_CONFIG,
+  PRISTINE_CONFIG
 };

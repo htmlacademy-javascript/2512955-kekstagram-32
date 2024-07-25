@@ -1,8 +1,10 @@
-import { NEW_PICTURE_FORM_SETTINGS } from '../../../config';
+import { SLIDER_CONFIG } from '../settings';
 import { dispatchFilter } from '../../picture-style';
 import { createPictureFilter } from './create-picture-filter';
+import { htmlTools } from '../../../utills';
 
-const { EFFECT_TYPES } = NEW_PICTURE_FORM_SETTINGS;
+const { EFFECT_TYPES } = SLIDER_CONFIG;
+const { setInputValue } = htmlTools;
 
 export const createSliderUpdateEvent = (filterRadioElements, valueInput, pictureElement) => {
   const radioElementsArray = [...filterRadioElements];
@@ -11,13 +13,13 @@ export const createSliderUpdateEvent = (filterRadioElements, valueInput, picture
     const sliderValue = values[0];
 
     if (checkedRadiodElement.value === EFFECT_TYPES.NONE) {
-      valueInput.value = '';
+      setInputValue(valueInput, null);
       dispatchFilter(pictureElement, null);
       return;
     }
 
     const pictureFilter = createPictureFilter(checkedRadiodElement.value, sliderValue);
     dispatchFilter(pictureElement, pictureFilter);
-    valueInput.value = sliderValue;
+    setInputValue(valueInput, sliderValue);
   };
 };

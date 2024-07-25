@@ -1,6 +1,6 @@
-import { NEW_PICTURE_FORM_SETTINGS } from '../config';
+import { SCALE_CONFIG } from './configure/settings';
 
-const { DEFAULT_SCALE } = NEW_PICTURE_FORM_SETTINGS;
+const { DEFAULT_SCALE } = SCALE_CONFIG;
 
 const styleState = {
   scale: DEFAULT_SCALE,
@@ -8,14 +8,12 @@ const styleState = {
 };
 
 const getScaleStyle = (scalePercent) => {
-  const scaleValue = scalePercent / 100;
-
-  return `transform: scale(${Number.isInteger(scaleValue) ? scaleValue : scaleValue.toFixed(2)});`;
+  if (typeof(scalePercent) === 'number') {
+    return `transform: scale(${(scalePercent / 100).toFixed(2)});`;
+  }
 };
 
-const getFilterStyle = (filterValue) => `filter: ${filterValue};`;
-
-const applyPictureStyleInState = (picture) => {
+const applyStylesInPicture = (picture) => {
   let styleExpression = '';
 
   if (styleState.scale !== DEFAULT_SCALE || styleState.filter) {
@@ -25,7 +23,7 @@ const applyPictureStyleInState = (picture) => {
     }
 
     if (styleState.filter) {
-      const filterStyle = getFilterStyle(styleState.filter);
+      const filterStyle = `filter: ${ styleState.filter };`;
       styleExpression += styleExpression ? ` ${filterStyle}` : filterStyle;
     }
   }
@@ -35,10 +33,10 @@ const applyPictureStyleInState = (picture) => {
 
 export const dispatchScale = (picture, scale) => {
   styleState.scale = scale ?? DEFAULT_SCALE;
-  applyPictureStyleInState(picture);
+  applyStylesInPicture(picture);
 };
 
 export const dispatchFilter = (picture, filter) => {
   styleState.filter = filter ? filter : null;
-  applyPictureStyleInState(picture);
+  applyStylesInPicture(picture);
 };
