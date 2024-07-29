@@ -6,7 +6,7 @@ const getHashtagsArray = (serializedHashtags) => String(serializedHashtags).spli
 
 export const validateHashtagByPattern = (serializedHashtags) => {
   const tags = getHashtagsArray(serializedHashtags);
-  const pattern = /^#(?:\d|[a-zA-Z]|[а-яА-Я]){1,19}$/;
+  const pattern = /^#(?:\d|[a-zA-Z]|[а-яёА-ЯЁ]){1,19}$/;
   return tags.every((current) => pattern.test(current.trim()));
 };
 

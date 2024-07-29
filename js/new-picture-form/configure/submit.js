@@ -1,4 +1,6 @@
-import { Popup } from '../../shared/popup';
+import { popupLib } from '../../shared';
+
+const { Popup } = popupLib;
 
 export const configureSubmitNewPictureForm = (newPictureForm, pristineValidator, newPicturePopup) => {
   const onNewPictureFormSubmit = (event) => {

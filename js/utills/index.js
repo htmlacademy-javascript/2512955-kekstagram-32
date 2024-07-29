@@ -17,7 +17,6 @@ import {
 } from './tools/keyboard';
 import {
   ENCTYPES,
-  QUERY_TYPES,
   setFormAttributes
 } from './tools/form';
 import {
@@ -47,7 +46,6 @@ const keyboardTools = {
 
 const formTools = {
   ENCTYPES,
-  QUERY_TYPES,
   setFormAttributes
 };
 

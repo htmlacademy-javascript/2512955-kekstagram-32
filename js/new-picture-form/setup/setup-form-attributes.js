@@ -1,9 +1,8 @@
 import { formTools } from '../../utills';
-import { URLS } from '../../config';
+import { URLS, QUERY_TYPES } from '../../config';
 
 const {
   ENCTYPES,
-  QUERY_TYPES,
   setFormAttributes
 } = formTools;
 

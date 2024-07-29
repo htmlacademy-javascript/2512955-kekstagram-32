@@ -6,13 +6,13 @@ import { createNewPicturePopup } from './popup';
 import { configureSubmitNewPictureForm } from './configure';
 import { configurePristineValidation } from './configure';
 import {
-  PopupEvent,
-  EVENT_TYPES
-} from '../shared/popup';
+  popupLib
+} from '../shared';
 import { resetNewPictureForm } from './reset';
 
 const downloadInputElement = document.querySelector('.img-upload__input');
 const newPictureForm = document.querySelector('.img-upload__form');
+const { PopupEvent, EVENT_TYPES } = popupLib;
 
 const onDownloadInputChange = (event) => {
   const element = event.target;
