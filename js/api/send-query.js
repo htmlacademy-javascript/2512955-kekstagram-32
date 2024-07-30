@@ -1,6 +1,6 @@
 import { QUERY_TYPES } from '../config';
 
-export const sendQuery = async (url, errorText = null, method = QUERY_TYPES.GET, body = null) => {
+export const sendQuery = async ({url, errorText = null, method = QUERY_TYPES.GET, body = null}) => {
   if (url instanceof URL) {
     try {
       const response = await fetch(url, { method, body });
@@ -11,4 +11,4 @@ export const sendQuery = async (url, errorText = null, method = QUERY_TYPES.GET,
   }
 
   throw new Error('Invalid URL argument');
-}
+};

@@ -26,13 +26,14 @@ const createPicturesClickElementEvent = (picturesData) => (event) => {
 };
 
 export const createGallery = () => {
-  getPicturesData().then((data) => {
-    const onPicturesListRootElementClick = createPicturesClickElementEvent(data);
-    renderHtmlElement(
-      picturesListRootElement,
-      createPicturesElements(data)
-    );
-
-    picturesListRootElement.addEventListener('click', onPicturesListRootElementClick);
-  }).catch(showLodingErrorNotification);
+  getPicturesData()
+    .then((data) => {
+      const onPicturesListRootElementClick = createPicturesClickElementEvent(data);
+      renderHtmlElement(
+        picturesListRootElement,
+        createPicturesElements(data)
+      );
+      picturesListRootElement.addEventListener('click', onPicturesListRootElementClick);
+    })
+    .catch(showLodingErrorNotification);
 };

@@ -8,7 +8,13 @@ export class Notification extends PushObject {
   lifeMilliseconds;
   autoClosable;
 
-  constructor({onOpenCallback, onCloseCallback, closeElement = null, autoClosable = true, lifeMilliseconds = DEFAULT_LIFE_MILLISECONDS}) {
+  constructor({
+    onOpenCallback,
+    onCloseCallback,
+    closeElement = null,
+    autoClosable = true,
+    lifeMilliseconds = DEFAULT_LIFE_MILLISECONDS
+  }) {
     super(onOpenCallback, onCloseCallback);
     this.closeElement = closeElement;
     this.lifeMilliseconds = lifeMilliseconds;

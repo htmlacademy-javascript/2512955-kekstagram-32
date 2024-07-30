@@ -17,6 +17,8 @@ export class PushObject {
       this.addEvent = this.addEvent.bind(this);
       this.open = this.open.bind(this);
       this.close = this.close.bind(this);
+      this.setOnDocumentEscapeKeydownEvent = this.setOnDocumentEscapeKeydownEvent.bind(this);
+      this.removeOnDocumentEscapeKeydownEvent = this.removeOnDocumentEscapeKeydownEvent.bind(this);
       return;
     }
 
@@ -36,10 +38,18 @@ export class PushObject {
     }
   }
 
+  setOnDocumentEscapeKeydownEvent() {
+    document.addEventListener('keydown', this.onDocumentKeydown);
+  }
+
+  removeOnDocumentEscapeKeydownEvent() {
+    document.removeEventListener('keydown', this.onDocumentKeydown);
+  }
+
   open(data) {
     this.onOpenCallback(data);
     this.applyEvents(EVENT_TYPES.OPEN);
-    document.addEventListener('keydown', this.onDocumentKeydown);
+    this.setOnDocumentEscapeKeydownEvent();
   }
 
   close() {
@@ -48,6 +58,6 @@ export class PushObject {
     }
 
     this.applyEvents(EVENT_TYPES.CLOSE);
-    document.removeEventListener('keydown', this.onDocumentKeydown);
+    this.removeOnDocumentEscapeKeydownEvent();
   }
 }

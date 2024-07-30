@@ -9,6 +9,7 @@ import {
   popupLib
 } from '../shared';
 import { resetNewPictureForm } from './reset';
+import { createSendPictureFormCallback } from './send-picture-form';
 
 const downloadInputElement = document.querySelector('.img-upload__input');
 const newPictureForm = document.querySelector('.img-upload__form');
@@ -26,10 +27,10 @@ const onDownloadInputChange = (event) => {
       pristineValidator
     );
 
+    const sendPictureCallback = createSendPictureFormCallback(newPictureForm, pristineValidator, newPicturePopup);
     const submitEvent = configureSubmitNewPictureForm(
       newPictureForm,
-      pristineValidator,
-      newPicturePopup
+      sendPictureCallback
     );
 
     submitEvent.set();
