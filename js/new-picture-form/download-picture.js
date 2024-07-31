@@ -6,13 +6,14 @@ import { createNewPicturePopup } from './popup';
 import { configureSubmitNewPictureForm } from './configure';
 import { configurePristineValidation } from './configure';
 import {
-  PopupEvent,
-  EVENT_TYPES
-} from '../shared/popup';
+  popupLib
+} from '../shared';
 import { resetNewPictureForm } from './reset';
+import { createSendPictureFormCallback } from './send-picture-form';
 
 const downloadInputElement = document.querySelector('.img-upload__input');
 const newPictureForm = document.querySelector('.img-upload__form');
+const { PopupEvent, EVENT_TYPES } = popupLib;
 
 const onDownloadInputChange = (event) => {
   const element = event.target;
@@ -26,10 +27,10 @@ const onDownloadInputChange = (event) => {
       pristineValidator
     );
 
+    const sendPictureCallback = createSendPictureFormCallback(newPictureForm, pristineValidator, newPicturePopup);
     const submitEvent = configureSubmitNewPictureForm(
       newPictureForm,
-      pristineValidator,
-      newPicturePopup
+      sendPictureCallback
     );
 
     submitEvent.set();

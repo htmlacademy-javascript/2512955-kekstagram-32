@@ -1,17 +1,10 @@
-import { Popup } from '../../shared/popup';
-
-export const configureSubmitNewPictureForm = (newPictureForm, pristineValidator, newPicturePopup) => {
+export const configureSubmitNewPictureForm = (newPictureForm, sendPictureCallback) => {
   const onNewPictureFormSubmit = (event) => {
     event.preventDefault();
-
-    if (pristineValidator.validate()) {
-      //TODO: Отправить форму на сервер
-      newPicturePopup.close();
-      newPictureForm.removeEventListener('submit', onNewPictureFormSubmit);
-    }
+    sendPictureCallback();
   };
 
-  if (newPictureForm instanceof HTMLFormElement && newPicturePopup instanceof Popup) {
+  if (newPictureForm instanceof HTMLFormElement && typeof(sendPictureCallback) === 'function') {
     return {
       set: () => newPictureForm.addEventListener('submit', onNewPictureFormSubmit),
       remove: () => newPictureForm.removeEventListener('submit', onNewPictureFormSubmit)

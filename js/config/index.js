@@ -1,6 +1,7 @@
 import {
   NEW_PICTURE_POST_URL,
-  PICTURES_LIST_GET_URL
+  PICTURES_LIST_GET_URL,
+  QUERY_TYPES
 } from './network';
 
 const URLS = {
@@ -9,5 +10,6 @@ const URLS = {
 };
 
 export {
-  URLS
+  URLS,
+  QUERY_TYPES
 };

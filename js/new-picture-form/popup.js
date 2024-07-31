@@ -1,4 +1,4 @@
-import { Popup } from '../shared/popup';
+import { popupLib } from '../shared';
 import {
   configureScaleEvents,
   configureValidationEvents
@@ -6,6 +6,8 @@ import {
 import {
   configureFilterSliderEvents
 } from './configure';
+
+const { Popup } = popupLib;
 
 export const createNewPicturePopup = (newPictureForm, downloadPictureInput, pristineValidator) => {
   const scaleEvents = configureScaleEvents(newPictureForm);

@@ -1,7 +1,7 @@
 import {
   htmlTools
 } from '../../utills';
-import { Popup } from '../../shared/popup/popup';
+import { popupLib } from '../../shared';
 import {
   createCommentsListRenderer
 } from '../create-picture-comment';
@@ -11,6 +11,8 @@ import {
 } from './event-helpers';
 
 const { fillHtmlElement, createHtmlElement } = htmlTools;
+
+const { Popup } = popupLib;
 
 const rootElement = document.querySelector('.big-picture');
 

@@ -3,12 +3,12 @@ export const EVENT_TYPES = {
   CLOSE: 'close'
 };
 
-export function PopupEvent(eventType, listener) {
+export function PushEvent(eventType, listener) {
   if (typeof(listener) === 'function') {
     this.type = eventType;
     this.listener = listener;
     return;
   }
 
-  throw new Error('PopupEvent build failed!');
+  throw new Error('PushEvent build failed!');
 }

@@ -1,59 +1,41 @@
 import {
-  PopupEvent,
-  EVENT_TYPES
-} from './popup-event';
-import {
   toggleModalOpenSelector,
-  onDocumentKeydownTemplate
-} from './handler';
+} from './set-open-modal-selector';
+import {
+  PushObject
+} from '../push-object';
+import { cssTools } from '../../utills';
 
-export const Popup = function({rootElement, onOpenPopupCallback, onClosePopupCallback, closeElement}) {
-  const isCorrectParams = rootElement instanceof HTMLElement
-    && closeElement instanceof HTMLElement
-    && typeof(onOpenPopupCallback) === 'function';
+const { toggleHiddenClassInElement } = cssTools;
 
-  if (isCorrectParams) {
-    this.rootElement = rootElement;
-    this.closeElement = closeElement;
-    const popupEvents = [];
+export class Popup extends PushObject {
+  root;
+  closeElement;
 
-    const onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
+  constructor({rootElement, onOpenPopupCallback, onClosePopupCallback, closeElement}) {
+    super(onOpenPopupCallback, onClosePopupCallback);
 
-    const applyPopupEvents = (type) => {
-      popupEvents.filter((current) => current.type === type).forEach((currentCallback) => currentCallback.listener());
-    };
+    if (rootElement instanceof HTMLElement && closeElement instanceof HTMLElement) {
+      this.root = rootElement;
+      this.closeElement = closeElement;
+      return;
+    }
 
-    this.open = (data) => {
-      onOpenPopupCallback(data);
-      this.rootElement.classList.remove('hidden');
-      toggleModalOpenSelector(true);
-      document.addEventListener('keydown', onDocumentKeydown);
-      closeElement.addEventListener('click', this.close);
-      applyPopupEvents(EVENT_TYPES.OPEN);
-    };
-
-    this.close = () => {
-      if (onClosePopupCallback && typeof(onClosePopupCallback) === 'function') {
-        onClosePopupCallback();
-      }
-      this.rootElement.classList.add('hidden');
-      toggleModalOpenSelector();
-      closeElement.removeEventListener('click', this.close);
-      document.removeEventListener('keydown', onDocumentKeydown);
-      applyPopupEvents(EVENT_TYPES.CLOSE);
-    };
-
-    this.addEvent = (additionalEvent) => {
-      if (additionalEvent instanceof PopupEvent) {
-        if (!popupEvents.find((current) => current.type === additionalEvent.type && current.listener === additionalEvent.listener)) {
-          popupEvents.push(additionalEvent);
-        }
-      }
-    };
-
-    return;
+    throw new Error('Popup build failed');
   }
 
-  throw new Error('Invalid build Popup!');
-};
+  open(data) {
+    super.open(data);
+    this.closeElement.addEventListener('click', this.close);
+    toggleHiddenClassInElement(this.root);
+    toggleModalOpenSelector(true);
+  }
+
+  close() {
+    super.close();
+    this.closeElement.removeEventListener('click', this.close);
+    toggleHiddenClassInElement(this.root, true);
+    toggleModalOpenSelector(false);
+  }
+}
 
