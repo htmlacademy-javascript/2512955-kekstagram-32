@@ -7,8 +7,8 @@ import {
   MAX_HASHTAGS_IN_INPUT
 } from './text-fields';
 import {
-  SLIDER_EFFECT_SETTINGS,
-  EFFECT_TYPES
+  SliderEffectSettings,
+  EffectTypes
 } from './filter-slider-effects';
 import { PRISTINE_CONFIG } from './pristine';
 
@@ -23,8 +23,8 @@ const FIELDS_CONFIG = {
 };
 
 const SLIDER_CONFIG = {
-  SLIDER_EFFECT_SETTINGS,
-  EFFECT_TYPES
+  SliderEffectSettings,
+  EffectTypes
 };
 
 export {

@@ -1,6 +1,6 @@
-import { QUERY_TYPES } from '../config';
+import { QueryTypes } from '../config';
 
-export const sendQuery = async ({url, errorText = null, method = QUERY_TYPES.GET, body = null}) => {
+export const sendQuery = async ({url, errorText = null, method = QueryTypes.GET, body = null}) => {
   if (url instanceof URL) {
     try {
       const response = await fetch(url, { method, body });

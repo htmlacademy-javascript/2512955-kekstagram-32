@@ -1,11 +1,11 @@
 import { sendQuery } from '../api';
-import { QUERY_TYPES, URLS } from '../config';
+import { QueryTypes, URLS } from '../config';
 
 export const sendNewPicture = async (pictureData) => {
   if (pictureData instanceof FormData) {
     return await sendQuery({
       url: URLS.NEW_PICTURE_POST_URL,
-      method: QUERY_TYPES.POST,
+      method: QueryTypes.POST,
       body: pictureData
     });
   }

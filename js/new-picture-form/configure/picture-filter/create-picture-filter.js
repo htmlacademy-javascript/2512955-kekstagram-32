@@ -1,22 +1,22 @@
 import { SLIDER_CONFIG } from '../settings';
 
-const { EFFECT_TYPES } = SLIDER_CONFIG;
+const { EffectTypes } = SLIDER_CONFIG;
 
 export const createPictureFilter = (effectType, value) => {
   switch(effectType) {
-    case EFFECT_TYPES.CHROME: {
+    case EffectTypes.CHROME: {
       return `grayscale(${ value })`;
     }
-    case EFFECT_TYPES.SEPIA: {
+    case EffectTypes.SEPIA: {
       return `sepia(${ value })`;
     }
-    case EFFECT_TYPES.MARWIN: {
+    case EffectTypes.MARWIN: {
       return `invert(${ value }%)`;
     }
-    case EFFECT_TYPES.PHOBOS: {
+    case EffectTypes.PHOBOS: {
       return `blur(${ value }px)`;
     }
-    case EFFECT_TYPES.COLD: {
+    case EffectTypes.COLD: {
       return `brightness(${ value })`;
     }
     default: {

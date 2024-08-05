@@ -61,7 +61,7 @@ const COLD_EFFECT = {
   format: DEFAULT_FORMAT
 };
 
-export const SLIDER_EFFECT_SETTINGS = {
+export const SliderEffectSettings = {
   CHROME: CHROME_EFFECT,
   SEPIA: SEPIA_EFFECT,
   MARWIN: MARWIN_EFFECT,
@@ -69,7 +69,7 @@ export const SLIDER_EFFECT_SETTINGS = {
   COLD: COLD_EFFECT,
 };
 
-export const EFFECT_TYPES = {
+export const EffectTypes = {
   NONE: 'none',
   CHROME: 'chrome',
   MARWIN: 'marvin',

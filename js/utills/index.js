@@ -16,7 +16,7 @@ import {
   isEscapeKey
 } from './tools/keyboard';
 import {
-  ENCTYPES,
+  Enctypes,
   setFormAttributes
 } from './tools/form';
 import {
@@ -45,7 +45,7 @@ const keyboardTools = {
 };
 
 const formTools = {
-  ENCTYPES,
+  Enctypes,
   setFormAttributes
 };
 

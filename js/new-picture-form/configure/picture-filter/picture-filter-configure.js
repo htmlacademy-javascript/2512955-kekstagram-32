@@ -3,7 +3,7 @@ import { createSliderUpdateEvent } from './slider-update';
 import { SLIDER_CONFIG } from '../settings';
 import { cssTools } from '../../../utills';
 
-const { SLIDER_EFFECT_SETTINGS } = SLIDER_CONFIG;
+const { SliderEffectSettings } = SLIDER_CONFIG;
 const { toggleHiddenClassInElement } = cssTools;
 
 const isChosenEffectRadioElement = (element) => element instanceof HTMLInputElement
@@ -12,7 +12,7 @@ const isChosenEffectRadioElement = (element) => element instanceof HTMLInputElem
   && element?.checked;
 
 export const configureFilterSliderEvents = (newPictureForm) => {
-  const defaultSliderSettings = {...SLIDER_EFFECT_SETTINGS.CHROME };
+  const defaultSliderSettings = {...SliderEffectSettings.CHROME };
   const sliderContainerElement = newPictureForm.querySelector('.img-upload__effect-level');
   const sliderRootElement = sliderContainerElement.querySelector('.effect-level__slider');
   const effectsListElement = newPictureForm.querySelector('.img-upload__effects');
