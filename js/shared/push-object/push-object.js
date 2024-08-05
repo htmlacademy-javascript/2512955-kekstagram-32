@@ -2,62 +2,76 @@ import { onDocumentKeydownTemplate } from './document-keydown-handler';
 import { EVENT_TYPES, PushEvent } from './events';
 
 export class PushObject {
-  onOpenCallback;
-  onCloseCallback;
-  onDocumentKeydown;
-  pushEvents;
+  _onDocumentKeydown;
+  _useOnDocumentKeydownEvent;
+  _onOpenCallback;
+  _onCloseCallback;
+  _pushEvents;
+  _closeElement;
 
-  constructor(onOpen, onClose) {
+  constructor(onOpen, onClose, closeElement = null, useOndocumentKeydownClose = true) {
     if (typeof(onOpen) === 'function') {
-      this.onOpenCallback = onOpen;
-      this.onCloseCallback = onClose;
-      this.onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
-      this.pushEvents = [];
-      this.applyEvents = this.applyEvents.bind(this);
+      this._onOpenCallback = onOpen;
+      this._onCloseCallback = onClose;
+      this._onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
+      this._pushEvents = [];
+      this._applyEvents = this._applyEvents.bind(this);
       this.addEvent = this.addEvent.bind(this);
       this.open = this.open.bind(this);
       this.close = this.close.bind(this);
-      this.setOnDocumentEscapeKeydownEvent = this.setOnDocumentEscapeKeydownEvent.bind(this);
-      this.removeOnDocumentEscapeKeydownEvent = this.removeOnDocumentEscapeKeydownEvent.bind(this);
+      this._closeElement = closeElement;
+      this._useOnDocumentKeydownEvent = useOndocumentKeydownClose;
       return;
     }
 
     throw new Error('PushObject build failed');
   }
 
-  applyEvents(eventType) {
-    this.pushEvents.filter((event) => event.type === eventType)
+  _applyEvents(eventType) {
+    this._pushEvents.filter((event) => event.type === eventType)
       .forEach((event) => event.listener());
   }
 
   addEvent(pushEvent) {
     if (pushEvent instanceof PushEvent) {
-      if (!this.pushEvents.find((current) => current.type === pushEvent.type && current.listener === pushEvent.listener)) {
-        this.pushEvents.push(pushEvent);
+      if (!this._pushEvents.find((current) => current.type === pushEvent.type && current.listener === pushEvent.listener)) {
+        this._pushEvents.push(pushEvent);
       }
     }
   }
 
   setOnDocumentEscapeKeydownEvent() {
-    document.addEventListener('keydown', this.onDocumentKeydown);
+    if (this._useOnDocumentKeydownEvent) {
+      document.addEventListener('keydown', this._onDocumentKeydown);
+    }
   }
 
   removeOnDocumentEscapeKeydownEvent() {
-    document.removeEventListener('keydown', this.onDocumentKeydown);
+    if (this._useOnDocumentKeydownEvent) {
+      document.removeEventListener('keydown', this._onDocumentKeydown);
+    }
   }
 
   open(data) {
-    this.onOpenCallback(data);
-    this.applyEvents(EVENT_TYPES.OPEN);
+    this._onOpenCallback(data);
+    this._applyEvents(EVENT_TYPES.OPEN);
     this.setOnDocumentEscapeKeydownEvent();
+
+    if (this._closeElement instanceof HTMLElement) {
+      this._closeElement.addEventListener('click', this.close);
+    }
   }
 
   close() {
-    if (this.onCloseCallback && typeof(this.onCloseCallback) === 'function') {
-      this.onCloseCallback();
+    if (this._onCloseCallback && typeof(this._onCloseCallback) === 'function') {
+      this._onCloseCallback();
     }
 
-    this.applyEvents(EVENT_TYPES.CLOSE);
+    if (this._closeElement instanceof HTMLElement) {
+      this._closeElement.removeEventListener('click', this.close);
+    }
+
+    this._applyEvents(EVENT_TYPES.CLOSE);
     this.removeOnDocumentEscapeKeydownEvent();
   }
 }

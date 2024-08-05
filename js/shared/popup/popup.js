@@ -9,15 +9,12 @@ import { cssTools } from '../../utills';
 const { toggleHiddenClassInElement } = cssTools;
 
 export class Popup extends PushObject {
-  root;
-  closeElement;
+  #root;
 
   constructor({rootElement, onOpenPopupCallback, onClosePopupCallback, closeElement}) {
-    super(onOpenPopupCallback, onClosePopupCallback);
-
     if (rootElement instanceof HTMLElement && closeElement instanceof HTMLElement) {
-      this.root = rootElement;
-      this.closeElement = closeElement;
+      super(onOpenPopupCallback, onClosePopupCallback, closeElement);
+      this.#root = rootElement;
       return;
     }
 
@@ -26,15 +23,13 @@ export class Popup extends PushObject {
 
   open(data) {
     super.open(data);
-    this.closeElement.addEventListener('click', this.close);
-    toggleHiddenClassInElement(this.root);
+    toggleHiddenClassInElement(this.#root);
     toggleModalOpenSelector(true);
   }
 
   close() {
     super.close();
-    this.closeElement.removeEventListener('click', this.close);
-    toggleHiddenClassInElement(this.root, true);
+    toggleHiddenClassInElement(this.#root, true);
     toggleModalOpenSelector(false);
   }
 }

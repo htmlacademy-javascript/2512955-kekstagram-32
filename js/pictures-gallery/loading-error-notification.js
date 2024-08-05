@@ -14,7 +14,8 @@ export const showLodingErrorNotification = () => {
 
   const notification = new Notification({
     onOpenCallback: renderNotification,
-    onCloseCallback: closeNotification
+    onCloseCallback: closeNotification,
+    useOnDocumentKeydownClose: false
   });
 
   notification.open();

@@ -3,7 +3,7 @@ import { dispatchFilter } from '../../picture-style';
 import { createPictureFilter } from './create-picture-filter';
 import { htmlTools } from '../../../utills';
 
-const { EFFECT_TYPES } = SLIDER_CONFIG;
+const { EffectTypes } = SLIDER_CONFIG;
 const { setInputValue } = htmlTools;
 
 export const createSliderUpdateEvent = (filterRadioElements, valueInput, pictureElement) => {
@@ -12,7 +12,7 @@ export const createSliderUpdateEvent = (filterRadioElements, valueInput, picture
     const checkedRadiodElement = radioElementsArray.find((current) => current.checked);
     const sliderValue = values[0];
 
-    if (checkedRadiodElement.value === EFFECT_TYPES.NONE) {
+    if (checkedRadiodElement.value === EffectTypes.NONE) {
       setInputValue(valueInput, null);
       dispatchFilter(pictureElement, null);
       return;

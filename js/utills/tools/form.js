@@ -1,13 +1,9 @@
 import {
   fillHtmlElement
 } from './html';
+import { QueryTypes } from '../../config';
 
-export const QUERY_TYPES = {
-  POST: 'POST',
-  GET: 'GET'
-};
-
-export const ENCTYPES = {
+export const Enctypes = {
   MULTIPART: 'multipart/form-data',
   PLAINTEXT: 'text/plain',
   DEFAULT: 'application/x-www-form-urlencoded'
@@ -16,8 +12,8 @@ export const ENCTYPES = {
 export const setFormAttributes = (form, method, enctype, action) => {
   const isCorrectParams = form instanceof HTMLFormElement
     && action instanceof URL
-    && Object.keys(QUERY_TYPES).includes((current) => current === method)
-    && (enctype) ? Object.keys(ENCTYPES).includes((current) => current === enctype) : true;
+    && Object.keys(QueryTypes).includes((current) => current === method)
+    && (enctype) ? Object.keys(QueryTypes).includes((current) => current === enctype) : true;
 
   if (isCorrectParams) {
     fillHtmlElement(

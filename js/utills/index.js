@@ -16,12 +16,16 @@ import {
   isEscapeKey
 } from './tools/keyboard';
 import {
-  ENCTYPES,
+  Enctypes,
   setFormAttributes
 } from './tools/form';
 import {
   toggleHiddenClassInElement
 } from './tools/css';
+import {
+  debounce,
+  throttle
+} from './tools/timer';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -45,12 +49,17 @@ const keyboardTools = {
 };
 
 const formTools = {
-  ENCTYPES,
+  Enctypes,
   setFormAttributes
 };
 
 const cssTools = {
   toggleHiddenClassInElement
+};
+
+const timerTools = {
+  debounce,
+  throttle
 };
 
 export {
@@ -60,4 +69,5 @@ export {
   keyboardTools,
   formTools,
   cssTools,
+  timerTools
 };

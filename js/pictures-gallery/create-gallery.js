@@ -3,6 +3,7 @@ import { htmlTools } from '../utills';
 import { createActivePicturePopup } from '../active-picture-popup/create-active-picture';
 import { createPicturesElements } from '../other-user-pictures';
 import { showLodingErrorNotification } from './loading-error-notification';
+import { createGalleryFilter } from './gallery-filter';
 
 const INVALID_ID = -1;
 
@@ -10,6 +11,7 @@ const { renderHtmlElement } = htmlTools;
 
 const activePicturePopup = createActivePicturePopup();
 const picturesListRootElement = document.querySelector('.pictures');
+const picturesFilterRootElement = document.querySelector('.img-filters');
 
 const createPicturesClickElementEvent = (picturesData) => (event) => {
   const element = event.target;
@@ -25,14 +27,28 @@ const createPicturesClickElementEvent = (picturesData) => (event) => {
   }
 };
 
+const onFilterChangeCallback = (galleryData) => {
+  const renderedPictures = picturesListRootElement.querySelectorAll('.picture');
+  Array.from(renderedPictures).forEach((current) => {
+    current.remove();
+  });
+
+  renderHtmlElement(
+    picturesListRootElement,
+    createPicturesElements(galleryData)
+  );
+};
+
 export const createGallery = () => {
   getPicturesData()
     .then((data) => {
+      createGalleryFilter({
+        galleryData: data,
+        onFilterChangeCallback,
+        rootElement: picturesFilterRootElement
+      });
+
       const onPicturesListRootElementClick = createPicturesClickElementEvent(data);
-      renderHtmlElement(
-        picturesListRootElement,
-        createPicturesElements(data)
-      );
       picturesListRootElement.addEventListener('click', onPicturesListRootElementClick);
     })
     .catch(showLodingErrorNotification);

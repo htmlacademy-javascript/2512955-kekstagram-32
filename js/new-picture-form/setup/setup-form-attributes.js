@@ -1,8 +1,8 @@
 import { formTools } from '../../utills';
-import { URLS, QUERY_TYPES } from '../../config';
+import { URLS, QueryTypes } from '../../config';
 
 const {
-  ENCTYPES,
+  Enctypes,
   setFormAttributes
 } = formTools;
 
@@ -10,8 +10,8 @@ export const setupNewPictureFormAttributes = (newPictureForm) => {
   if (newPictureForm instanceof HTMLFormElement) {
     setFormAttributes(
       newPictureForm,
-      QUERY_TYPES.POST,
-      ENCTYPES.MULTIPART,
+      QueryTypes.POST,
+      Enctypes.MULTIPART,
       URLS.NEW_PICTURE_POST_URL
     );
     return;
