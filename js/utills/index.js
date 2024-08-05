@@ -22,6 +22,10 @@ import {
 import {
   toggleHiddenClassInElement
 } from './tools/css';
+import {
+  debounce,
+  throttle
+} from './tools/timer';
 
 const randomTools = {
   getRandomIntegerInInterval,
@@ -53,6 +57,11 @@ const cssTools = {
   toggleHiddenClassInElement
 };
 
+const timerTools = {
+  debounce,
+  throttle
+};
+
 export {
   randomTools,
   numberGeneratorTools,
@@ -60,4 +69,5 @@ export {
   keyboardTools,
   formTools,
   cssTools,
+  timerTools
 };
