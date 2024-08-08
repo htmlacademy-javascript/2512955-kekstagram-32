@@ -1,5 +1,5 @@
 import { onDocumentKeydownTemplate } from './document-keydown-handler';
-import { EVENT_TYPES, PushEvent } from './events';
+import { EventTypes, PushEvent } from './events';
 
 export class PushObject {
   _onDocumentKeydown;
@@ -54,7 +54,7 @@ export class PushObject {
 
   open(data) {
     this._onOpenCallback(data);
-    this._applyEvents(EVENT_TYPES.OPEN);
+    this._applyEvents(EventTypes.OPEN);
     this.setOnDocumentEscapeKeydownEvent();
 
     if (this._closeElement instanceof HTMLElement) {
@@ -71,7 +71,7 @@ export class PushObject {
       this._closeElement.removeEventListener('click', this.close);
     }
 
-    this._applyEvents(EVENT_TYPES.CLOSE);
+    this._applyEvents(EventTypes.CLOSE);
     this.removeOnDocumentEscapeKeydownEvent();
   }
 }

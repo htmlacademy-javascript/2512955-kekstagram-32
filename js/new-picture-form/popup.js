@@ -9,12 +9,19 @@ import {
 
 const { Popup } = popupLib;
 
-export const createNewPicturePopup = (newPictureForm, downloadPictureInput, pristineValidator) => {
+export const createNewPicturePopup = ({
+  newPictureForm,
+  downloadPictureInput,
+  pristineValidator,
+  pictureURL,
+  previewElement
+}) => {
   const scaleEvents = configureScaleEvents(newPictureForm);
   const validationEvents = configureValidationEvents(pristineValidator, newPictureForm);
-  const filterSliderEvents = configureFilterSliderEvents(newPictureForm);
+  const filterSliderEvents = configureFilterSliderEvents(newPictureForm, pictureURL);
   // eslint-disable-next-line no-unused-vars
   const onOpenPopupCallback = (data) => {
+    previewElement.src = pictureURL;
     scaleEvents.set();
     validationEvents.set();
     filterSliderEvents.set();
@@ -28,7 +35,9 @@ export const createNewPicturePopup = (newPictureForm, downloadPictureInput, pris
     pristineValidator.destroy();
   };
 
-  if (newPictureForm instanceof HTMLFormElement && downloadPictureInput instanceof HTMLInputElement) {
+  const elementsIsDomItems = newPictureForm instanceof HTMLFormElement && downloadPictureInput instanceof HTMLInputElement && previewElement instanceof HTMLImageElement;
+
+  if (elementsIsDomItems && URL.canParse(pictureURL)) {
     return new Popup({
       rootElement: newPictureForm.querySelector('.img-upload__overlay'),
       onClosePopupCallback,

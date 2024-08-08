@@ -1,6 +1,6 @@
 import { notificationLib } from '../../shared';
 
-const { Notification, NotificationEvent, EVENT_TYPES } = notificationLib;
+const { Notification, NotificationEvent, EventTypes } = notificationLib;
 
 export const setDocumentInnerPointClickEvent = (notification, rootElement) => {
   const onDocumentInnerPointClickEvent = (event) => {
@@ -11,12 +11,12 @@ export const setDocumentInnerPointClickEvent = (notification, rootElement) => {
 
   if (notification instanceof Notification && rootElement instanceof HTMLElement) {
     notification.addEvent(new NotificationEvent(
-      EVENT_TYPES.OPEN,
+      EventTypes.OPEN,
       () => rootElement.addEventListener('click', onDocumentInnerPointClickEvent)
     ));
 
     notification.addEvent(new NotificationEvent(
-      EVENT_TYPES.CLOSE,
+      EventTypes.CLOSE,
       () => rootElement.removeEventListener('click', onDocumentInnerPointClickEvent)
     ));
 
