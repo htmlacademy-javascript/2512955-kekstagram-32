@@ -5,20 +5,32 @@ import {
 } from './notifications';
 import { notificationLib } from '../shared';
 
-const { EVENT_TYPES, NotificationEvent } = notificationLib;
+const SubmitButtonCaptions = {
+  DEFAULT: 'Опубликовать',
+  SUBMIT: 'Идет публикация'
+};
+
+const { EventTypes, NotificationEvent } = notificationLib;
+
+const tuneSubmitButton = (buttonElement, caption, disabled) => {
+  buttonElement.setAttribute('disabled', disabled);
+  buttonElement.textContent = caption;
+};
 
 export const createSendPictureFormCallback = (pictureForm, pristineValidator, picturePopup) => {
   const sendPicture = () => {
     if (pristineValidator.validate()) {
       const documentEscapeKeydownEvent = new NotificationEvent(
-        EVENT_TYPES.CLOSE,
+        EventTypes.CLOSE,
         picturePopup.setOnDocumentEscapeKeydownEvent
       );
 
       picturePopup.removeOnDocumentEscapeKeydownEvent();
       const submitButton = pictureForm.querySelector('#upload-submit');
-      submitButton.disabled = true;
+      submitButton.setAttribute('disabled', true);
+      tuneSubmitButton(submitButton, SubmitButtonCaptions.SUBMIT, true);
       const pictureData = new FormData(pictureForm);
+
       sendNewPicture(pictureData)
         .then(() => {
           picturePopup.close();
@@ -30,7 +42,7 @@ export const createSendPictureFormCallback = (pictureForm, pristineValidator, pi
           errorNotification.open();
         })
         .finally(() => {
-          submitButton.disabled = false;
+          tuneSubmitButton(submitButton, SubmitButtonCaptions.DEFAULT, false);
         });
     }
   };

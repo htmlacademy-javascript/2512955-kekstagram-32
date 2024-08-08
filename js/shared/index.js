@@ -2,7 +2,7 @@ import {
   Popup
 } from './popup';
 import {
-  EVENT_TYPES,
+  EventTypes,
   PushEvent
 } from './push-object';
 import {
@@ -11,13 +11,13 @@ import {
 
 const popupLib = {
   Popup,
-  EVENT_TYPES,
+  EventTypes,
   PopupEvent: PushEvent
 };
 
 const notificationLib = {
   Notification,
-  EVENT_TYPES,
+  EventTypes,
   NotificationEvent: PushEvent
 };
 

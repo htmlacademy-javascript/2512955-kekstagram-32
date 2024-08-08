@@ -1,4 +1,4 @@
-export const EVENT_TYPES = {
+export const EventTypes = {
   OPEN: 'open',
   CLOSE: 'close'
 };
