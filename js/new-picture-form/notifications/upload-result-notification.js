@@ -21,7 +21,7 @@ const createUploadResultNotification = (rootElement, closeElement) => {
     onOpenCallback: onNotificationOpen,
     onCloseCallback: onNotificationClose,
     closeElement,
-    autoClosable: true
+    autoClosable: false
   });
 
   setDocumentInnerPointClickEvent(notification, rootElement);

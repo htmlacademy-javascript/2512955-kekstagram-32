@@ -14,18 +14,11 @@ const getScaleStyle = (scalePercent) => {
 };
 
 const applyStylesInPicture = (picture) => {
-  let styleExpression = '';
+  let styleExpression = getScaleStyle(styleState.scale);
 
-  if (styleState.scale !== DEFAULT_SCALE || styleState.filter) {
-
-    if (styleState.scale !== DEFAULT_SCALE) {
-      styleExpression += getScaleStyle(styleState.scale);
-    }
-
-    if (styleState.filter) {
-      const filterStyle = `filter: ${ styleState.filter };`;
-      styleExpression += styleExpression ? ` ${filterStyle}` : filterStyle;
-    }
+  if (styleState.filter) {
+    const filterStyle = `filter: ${ styleState.filter };`;
+    styleExpression += styleExpression ? ` ${filterStyle}` : filterStyle;
   }
 
   picture.style = styleExpression ? styleExpression : null;

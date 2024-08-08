@@ -13,7 +13,7 @@ const SubmitButtonCaptions = {
 const { EventTypes, NotificationEvent } = notificationLib;
 
 const tuneSubmitButton = (buttonElement, caption, disabled) => {
-  buttonElement.setAttribute('disabled', disabled);
+  buttonElement.disabled = disabled;
   buttonElement.textContent = caption;
 };
 
@@ -27,7 +27,6 @@ export const createSendPictureFormCallback = (pictureForm, pristineValidator, pi
 
       picturePopup.removeOnDocumentEscapeKeydownEvent();
       const submitButton = pictureForm.querySelector('#upload-submit');
-      submitButton.setAttribute('disabled', true);
       tuneSubmitButton(submitButton, SubmitButtonCaptions.SUBMIT, true);
       const pictureData = new FormData(pictureForm);
 
@@ -42,7 +41,7 @@ export const createSendPictureFormCallback = (pictureForm, pristineValidator, pi
           errorNotification.open();
         })
         .finally(() => {
-          tuneSubmitButton(submitButton, SubmitButtonCaptions.DEFAULT, false);
+          tuneSubmitButton(submitButton, SubmitButtonCaptions.DEFAULT, null);
         });
     }
   };

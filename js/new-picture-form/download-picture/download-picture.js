@@ -20,24 +20,15 @@ const newPictureForm = document.querySelector('.img-upload__form');
 const downloadInputElement = newPictureForm.querySelector('.img-upload__input');
 const newPicturePreviewElement = newPictureForm.querySelector('.img-upload__preview img');
 
-const onFileLoad = (event) => {
-  const readingFileResult = event.target.result;
+const onFileLoad = (fileURL) => {
   const pristineValidator = configurePristineValidation(newPictureForm);
-
-  const newPicturePopup = createNewPicturePopup(
+  const newPicturePopup = createNewPicturePopup({
     newPictureForm,
-    downloadInputElement,
-    pristineValidator
-  );
-
-  const setSrcEvent = new PopupEvent(
-    EventTypes.OPEN,
-    () => {
-      newPicturePreviewElement.setAttribute('src', readingFileResult);
-    }
-  );
-
-  newPicturePopup.addEvent(setSrcEvent);
+    downloadPictureInput: downloadInputElement,
+    pristineValidator,
+    pictureURL: fileURL,
+    previewElement: newPicturePreviewElement
+  });
 
   const sendPictureCallback = createSendPictureFormCallback(newPictureForm, pristineValidator, newPicturePopup);
   const submitEvent = configureSubmitNewPictureForm(
@@ -46,11 +37,14 @@ const onFileLoad = (event) => {
   );
 
   submitEvent.set();
-  newPicturePopup.open(readingFileResult);
+  newPicturePopup.open(fileURL);
 
   newPicturePopup.addEvent(new PopupEvent(
     EventTypes.CLOSE,
-    () => resetNewPictureForm(newPictureForm)
+    () => {
+      URL.revokeObjectURL(fileURL);
+      resetNewPictureForm(newPictureForm);
+    }
   ));
   newPicturePopup.addEvent(new PopupEvent(
     EventTypes.CLOSE,
