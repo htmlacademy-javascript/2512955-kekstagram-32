@@ -11,19 +11,13 @@ const isChosenEffectRadioElement = (element) => element instanceof HTMLInputElem
   && element.closest('.effects__item')
   && element?.checked;
 
-export const configureFilterSliderEvents = (newPictureForm, pictureURL) => {
+export const configureFilterSliderEvents = (newPictureForm) => {
   const defaultSliderSettings = {...SliderEffectSettings.CHROME };
   const sliderContainerElement = newPictureForm.querySelector('.img-upload__effect-level');
   const sliderRootElement = sliderContainerElement.querySelector('.effect-level__slider');
   const effectsListElement = newPictureForm.querySelector('.img-upload__effects');
   const originalStylesInput = newPictureForm.querySelector('#effect-none');
   const slider = noUiSlider.create(sliderRootElement, defaultSliderSettings);
-
-  const effectElements = newPictureForm.querySelectorAll('.effects__preview');
-
-  for (const effectElement of effectElements) {
-    effectElement.style = `background-image: url(${pictureURL})`;
-  }
 
   const sliderUpdateEvent = createSliderUpdateEvent(
     newPictureForm.querySelectorAll('.effects__radio'),
