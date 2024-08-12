@@ -6,6 +6,8 @@ import {
 import {
   configureFilterSliderEvents
 } from './configure';
+import { setupFormPictures } from './setup';
+import { resetNewPictureFormValues } from './reset';
 
 const { Popup } = popupLib;
 
@@ -18,20 +20,22 @@ export const createNewPicturePopup = ({
 }) => {
   const scaleEvents = configureScaleEvents(newPictureForm);
   const validationEvents = configureValidationEvents(pristineValidator, newPictureForm);
-  const filterSliderEvents = configureFilterSliderEvents(newPictureForm, pictureURL);
-  // eslint-disable-next-line no-unused-vars
-  const onOpenPopupCallback = (data) => {
-    previewElement.src = pictureURL;
+  const filterSliderEvents = configureFilterSliderEvents(newPictureForm);
+  const formPictures = setupFormPictures(newPictureForm);
+
+  const onOpenPopupCallback = () => {
+    formPictures.set(pictureURL);
     scaleEvents.set();
     validationEvents.set();
     filterSliderEvents.set();
   };
 
   const onClosePopupCallback = () => {
+    formPictures.remove();
     scaleEvents.remove();
     validationEvents.remove();
     filterSliderEvents.remove();
-    downloadPictureInput.value = null;
+    resetNewPictureFormValues(newPictureForm);
     pristineValidator.destroy();
   };
 

@@ -13,14 +13,16 @@ export class PushObject {
     if (typeof(onOpen) === 'function') {
       this._onOpenCallback = onOpen;
       this._onCloseCallback = onClose;
-      this._onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
       this._pushEvents = [];
+      this._closeElement = closeElement;
+      this._useOnDocumentKeydownEvent = useOndocumentKeydownClose;
+      this._onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
       this._applyEvents = this._applyEvents.bind(this);
       this.addEvent = this.addEvent.bind(this);
       this.open = this.open.bind(this);
       this.close = this.close.bind(this);
-      this._closeElement = closeElement;
-      this._useOnDocumentKeydownEvent = useOndocumentKeydownClose;
+      this.setOnDocumentEscapeKeydownEvent = this.setOnDocumentEscapeKeydownEvent.bind(this);
+      this.removeOnDocumentEscapeKeydownEvent = this.removeOnDocumentEscapeKeydownEvent.bind(this);
       return;
     }
 
@@ -29,7 +31,9 @@ export class PushObject {
 
   _applyEvents(eventType) {
     this._pushEvents.filter((event) => event.type === eventType)
-      .forEach((event) => event.listener());
+      .forEach((event) => {
+        event.listener();
+      });
   }
 
   addEvent(pushEvent) {

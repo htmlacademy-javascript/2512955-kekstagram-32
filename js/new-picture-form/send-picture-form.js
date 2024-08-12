@@ -20,24 +20,22 @@ const tuneSubmitButton = (buttonElement, caption, disabled) => {
 export const createSendPictureFormCallback = (pictureForm, pristineValidator, picturePopup) => {
   const sendPicture = () => {
     if (pristineValidator.validate()) {
-      const documentEscapeKeydownEvent = new NotificationEvent(
+      const setDocumentEscapeCloseEventByPopup = new NotificationEvent(
         EventTypes.CLOSE,
         picturePopup.setOnDocumentEscapeKeydownEvent
       );
-
       picturePopup.removeOnDocumentEscapeKeydownEvent();
       const submitButton = pictureForm.querySelector('#upload-submit');
       tuneSubmitButton(submitButton, SubmitButtonCaptions.SUBMIT, true);
-      const pictureData = new FormData(pictureForm);
 
-      sendNewPicture(pictureData)
+      sendNewPicture(new FormData(pictureForm))
         .then(() => {
           picturePopup.close();
           createUploadSuccessNotification().open();
         })
         .catch(() => {
           const errorNotification = createUploadErrorNotification();
-          errorNotification.addEvent(documentEscapeKeydownEvent);
+          errorNotification.addEvent(setDocumentEscapeCloseEventByPopup);
           errorNotification.open();
         })
         .finally(() => {

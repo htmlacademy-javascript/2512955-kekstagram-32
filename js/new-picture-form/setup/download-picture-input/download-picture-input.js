@@ -8,7 +8,7 @@ const setAcceptAttribute = (downloadPictureInput) => {
   downloadPictureInput.setAttribute('accept', acceptAttributeValue);
 };
 
-export const setupDownloadPictureInput = (downloadPictureInput, onSelectedFileCallback) => {
+export const setupDownloadPictureInput = (downloadPictureInput, onFileLoadCallback) => {
   const onDownloadInputChange = (event) => {
     const element = event.target;
 
@@ -16,18 +16,18 @@ export const setupDownloadPictureInput = (downloadPictureInput, onSelectedFileCa
       const file = element.files[0];
       try {
         checkFile(file);
-        onSelectedFileCallback(file);
+        onFileLoadCallback(file);
       } catch(err) {
         createUploadErrorNotification(err).open();
       }
     }
   };
 
-  if (downloadPictureInput instanceof HTMLInputElement && typeof (onSelectedFileCallback) === 'function') {
+  if (downloadPictureInput instanceof HTMLInputElement && typeof (onFileLoadCallback) === 'function') {
     setAcceptAttribute(downloadPictureInput);
     downloadPictureInput.addEventListener('change', onDownloadInputChange);
     return;
   }
 
-  throw new Error('DownloadPictureInput is not HTML input');
+  throw new Error('Invalid arguments');
 };

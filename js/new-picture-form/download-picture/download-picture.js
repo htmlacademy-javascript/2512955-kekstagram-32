@@ -10,9 +10,7 @@ import {
 import {
   popupLib
 } from '../../shared';
-import { resetNewPictureForm } from '../reset';
 import { createSendPictureFormCallback } from '../send-picture-form';
-import { loadFile } from './load-file';
 
 const { PopupEvent, EventTypes } = popupLib;
 
@@ -20,7 +18,8 @@ const newPictureForm = document.querySelector('.img-upload__form');
 const downloadInputElement = newPictureForm.querySelector('.img-upload__input');
 const newPicturePreviewElement = newPictureForm.querySelector('.img-upload__preview img');
 
-const onFileLoad = (fileURL) => {
+const onFileLoad = (file) => {
+  const fileURL = URL.createObjectURL(file);
   const pristineValidator = configurePristineValidation(newPictureForm);
   const newPicturePopup = createNewPicturePopup({
     newPictureForm,
@@ -43,7 +42,6 @@ const onFileLoad = (fileURL) => {
     EventTypes.CLOSE,
     () => {
       URL.revokeObjectURL(fileURL);
-      resetNewPictureForm(newPictureForm);
     }
   ));
   newPicturePopup.addEvent(new PopupEvent(
@@ -52,11 +50,7 @@ const onFileLoad = (fileURL) => {
   ));
 };
 
-const onFileSelected = (file) => {
-  loadFile(file, onFileLoad);
-};
-
 export const configureNewPictureDownloadComponent = () => {
   setupNewPictureFormAttributes(newPictureForm);
-  setupDownloadPictureInput(downloadInputElement, onFileSelected);
+  setupDownloadPictureInput(downloadInputElement, onFileLoad);
 };
