@@ -7,7 +7,7 @@ import {
 } from '../create-picture-comment';
 import {
   loadComments,
-  toggleHiddenClassInCommentsTotalAndLoader,
+  toggleHiddenClassInCommentsLoader,
 } from './event-helpers';
 
 const { fillHtmlElement, createHtmlElement } = htmlTools;
@@ -22,7 +22,7 @@ const onActivePicturePopupOpen = ({
   comments,
   url
 }) => {
-  toggleHiddenClassInCommentsTotalAndLoader(rootElement, false);
+  toggleHiddenClassInCommentsLoader(rootElement, false);
 
   const renderedCommentsCountElement = rootElement.querySelector('.social__comment-shown-count');
   const commentsListElement = rootElement.querySelector('.social__comments');
@@ -35,7 +35,7 @@ const onActivePicturePopupOpen = ({
     loadComments(rootElement, renderCommentsList);
 
     if (commentsListElement.children.length === comments.length) {
-      toggleHiddenClassInCommentsTotalAndLoader(rootElement, true);
+      toggleHiddenClassInCommentsLoader(rootElement, true);
       event.target.removeEventListener('click', onCommentsLoaderClick);
     }
   };
@@ -81,7 +81,7 @@ const onActivePicturePopupOpen = ({
   );
 
   if (commentsListElement.children.length === comments.length) {
-    toggleHiddenClassInCommentsTotalAndLoader(rootElement, true);
+    toggleHiddenClassInCommentsLoader(rootElement, true);
     commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
     return;
   }
