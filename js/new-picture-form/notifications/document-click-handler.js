@@ -3,7 +3,7 @@ import { notificationLib } from '../../shared';
 const { Notification, NotificationEvent, EventTypes } = notificationLib;
 
 export const setDocumentInnerPointClickEvent = (notification, rootElement) => {
-  const onDocumentInnerPointClickEvent = (event) => {
+  const onRootElementClick = (event) => {
     if (event.target === event.currentTarget) {
       notification.close();
     }
@@ -12,12 +12,12 @@ export const setDocumentInnerPointClickEvent = (notification, rootElement) => {
   if (notification instanceof Notification && rootElement instanceof HTMLElement) {
     notification.addEvent(new NotificationEvent(
       EventTypes.OPEN,
-      () => rootElement.addEventListener('click', onDocumentInnerPointClickEvent)
+      () => rootElement.addEventListener('click', onRootElementClick)
     ));
 
     notification.addEvent(new NotificationEvent(
       EventTypes.CLOSE,
-      () => rootElement.removeEventListener('click', onDocumentInnerPointClickEvent)
+      () => rootElement.removeEventListener('click', onRootElementClick)
     ));
 
     return;

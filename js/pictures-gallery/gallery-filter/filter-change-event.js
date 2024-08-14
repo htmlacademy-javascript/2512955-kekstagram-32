@@ -29,30 +29,31 @@ export const setOnFilterChangeEvent = ({
   onFilterChangeCallback,
   rootElement,
 }) => {
-  const debouncedFilterChangeCallback = debounce(onFilterChangeCallback);
   const filtersForm = rootElement.querySelector('.img-filters__form');
   let activeFilterElement = rootElement.querySelector(`.${ACTIVE_FILTER_SELECTOR}`);
 
   const getActiveFilterType = (filterElement) => filterElement?.id ?? FilterTypes.DEFAULT;
 
-  const applyFilterByGallery = (filterType, applyFilterCallback = debouncedFilterChangeCallback) => {
+  const applyFilterByGallery = (filterType) => {
     const applyFilter = getFilter(filterType);
     const filteredData = applyFilter(data);
-    applyFilterCallback(filteredData);
+    onFilterChangeCallback(filteredData);
   };
 
-  applyFilterByGallery(getActiveFilterType(activeFilterElement), onFilterChangeCallback);
+  const debouncedApplyFilterByGallery = debounce(applyFilterByGallery);
 
-  const onFilterChangeHandler = (event) => {
+  applyFilterByGallery(getActiveFilterType(activeFilterElement));
+
+  const onFiltersFormClick = (event) => {
     const element = event.target;
 
     if (element.matches('.img-filters__button') && element.closest('.img-filters__form') && activeFilterElement !== element) {
-      applyFilterByGallery(getActiveFilterType(element));
+      debouncedApplyFilterByGallery(getActiveFilterType(element));
       activeFilterElement.classList.remove(ACTIVE_FILTER_SELECTOR);
       element.classList.add(ACTIVE_FILTER_SELECTOR);
       activeFilterElement = element;
     }
   };
 
-  filtersForm.addEventListener('click', onFilterChangeHandler);
+  filtersForm.addEventListener('click', onFiltersFormClick);
 };

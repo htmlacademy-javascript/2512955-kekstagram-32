@@ -18,6 +18,7 @@ export class PushObject {
       this._useOnDocumentKeydownEvent = useOndocumentKeydownClose;
       this._onDocumentKeydown = onDocumentKeydownTemplate.bind(this);
       this._applyEvents = this._applyEvents.bind(this);
+      this._onCloseElementClick = this._onCloseElementClick.bind(this);
       this.addEvent = this.addEvent.bind(this);
       this.open = this.open.bind(this);
       this.close = this.close.bind(this);
@@ -27,6 +28,10 @@ export class PushObject {
     }
 
     throw new Error('PushObject build failed');
+  }
+
+  _onCloseElementClick() {
+    this.close();
   }
 
   _applyEvents(eventType) {
@@ -62,7 +67,7 @@ export class PushObject {
     this.setOnDocumentEscapeKeydownEvent();
 
     if (this._closeElement instanceof HTMLElement) {
-      this._closeElement.addEventListener('click', this.close);
+      this._closeElement.addEventListener('click', this._onCloseElementClick);
     }
   }
 
@@ -72,7 +77,7 @@ export class PushObject {
     }
 
     if (this._closeElement instanceof HTMLElement) {
-      this._closeElement.removeEventListener('click', this.close);
+      this._closeElement.removeEventListener('click', this._onCloseElementClick);
     }
 
     this._applyEvents(EventTypes.CLOSE);

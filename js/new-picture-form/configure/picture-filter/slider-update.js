@@ -7,9 +7,9 @@ const { EffectTypes } = SLIDER_CONFIG;
 const { setInputValue } = htmlTools;
 
 export const createSliderUpdateEvent = (filterRadioElements, valueInput, pictureElement) => {
-  const radioElementsArray = [...filterRadioElements];
+  const radioElements = [...filterRadioElements];
   return (values) => {
-    const checkedRadiodElement = radioElementsArray.find((current) => current.checked);
+    const checkedRadiodElement = radioElements.find((current) => current.checked);
     const sliderValue = values[0];
 
     if (checkedRadiodElement.value === EffectTypes.NONE) {

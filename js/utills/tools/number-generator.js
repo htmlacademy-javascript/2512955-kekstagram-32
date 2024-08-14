@@ -7,17 +7,17 @@ const createUniqueNumberInIntervalGenerator = (intervalBegin, intervalEnd) => {
     const minValue = Math.min(intervalBegin, intervalEnd);
     const maxValue = Math.max(intervalBegin, intervalEnd);
     const allValuesCount = Math.abs(maxValue - minValue + 1);
-    const usedValuesStore = [];
+    const usedValues = [];
 
     return () => {
-      if (usedValuesStore.length < allValuesCount) {
+      if (usedValues.length < allValuesCount) {
         let newValue = getRandomIntegerInInterval(minValue, maxValue);
 
-        while (usedValuesStore.includes(newValue)) {
+        while (usedValues.includes(newValue)) {
           newValue = getRandomIntegerInInterval(intervalBegin, intervalEnd);
         }
 
-        usedValuesStore.push(newValue);
+        usedValues.push(newValue);
 
         return newValue;
       }

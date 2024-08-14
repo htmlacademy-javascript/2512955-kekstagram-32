@@ -6,10 +6,8 @@ import {
 const { toggleHiddenClassInElement } = cssTools;
 const { fillHtmlElement } = htmlTools;
 
-export const toggleHiddenClassInCommentsTotalAndLoader = (root, isHidden = false) => {
-  const commentTotalElement = root.querySelector('.social__comment-count');
+export const toggleHiddenClassInCommentsLoader = (root, isHidden = false) => {
   const commentLoaderElement = root.querySelector('.social__comments-loader');
-  toggleHiddenClassInElement(commentTotalElement, isHidden);
   toggleHiddenClassInElement(commentLoaderElement, isHidden);
 };
 
